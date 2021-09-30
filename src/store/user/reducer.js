@@ -3,13 +3,14 @@ import { LOG_OUT, LOGIN_SUCCESS, TOKEN_STILL_VALID } from "./actions";
 const initialState = {
   token: localStorage.getItem("token"),
   name: null,
-  email: null
+  email: null,
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
     case LOGIN_SUCCESS:
       localStorage.setItem("token", action.payload.token);
+
       return { ...state, ...action.payload };
 
     case LOG_OUT:
@@ -18,6 +19,27 @@ export default (state = initialState, action) => {
 
     case TOKEN_STILL_VALID:
       return { ...state, ...action.payload };
+
+    case "user/deleteStory": {
+      const id = action.payload;
+      const newArrayOfStories = state.space.stories.filter(
+        (story) => story.id !== id
+      );
+      return {
+        ...state,
+        space: { ...state.space, stories: newArrayOfStories },
+      };
+    }
+
+    case "user/createStory": {
+      return {
+        ...state,
+        space: {
+          ...state.space,
+          stories: [...state.space.stories, action.payload],
+        },
+      };
+    }
 
     default:
       return state;

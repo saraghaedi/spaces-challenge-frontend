@@ -1,7 +1,7 @@
 const initialState = {
   loading: true,
   all: [],
-  details: {},
+  details: null,
 };
 
 export default function reducer(state = initialState, action) {
@@ -17,6 +17,13 @@ export default function reducer(state = initialState, action) {
         ...state,
         loading: false,
         all: [...action.payload],
+      };
+    }
+    case "space/fetchedSpaceDetail": {
+      return {
+        ...state,
+        loading: false,
+        details: action.payload,
       };
     }
     default: {

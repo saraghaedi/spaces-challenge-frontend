@@ -7,26 +7,14 @@ import Loading from "./components/Loading";
 import MessageBox from "./components/MessageBox";
 import SignUp from "./pages/SignUp";
 import Login from "./pages/Login";
-import SpaceCard from "./components/SpaceCard";
+import SpaceDetailPage from "./pages/SpaceDetailPage";
+import Homepage from "./pages/Homepage";
+import MySpace from "./pages/MySpacePage";
+import StoryForm from "./components/StoryForm";
 
 import { useDispatch, useSelector } from "react-redux";
 import { selectAppLoading } from "./store/appState/selectors";
 import { getUserWithStoredToken } from "./store/user/actions";
-import { Jumbotron } from "react-bootstrap";
-
-const Home = () => (
-  <div>
-    <Jumbotron>
-      <h1>Spaces</h1>
-    </Jumbotron>
-    <SpaceCard />
-  </div>
-);
-const Other = () => (
-  <Jumbotron>
-    <h1>Other</h1>
-  </Jumbotron>
-);
 
 function App() {
   const dispatch = useDispatch();
@@ -42,8 +30,10 @@ function App() {
       <MessageBox />
       {isLoading ? <Loading /> : null}
       <Switch>
-        <Route exact path="/" component={Home} />
-        <Route path="/other" component={Other} />
+        <Route path="/spaces/:id" component={SpaceDetailPage} />
+        <Route exact path="/" component={Homepage} />
+        <Route path="/mySpace/newStory" component={StoryForm} />
+        <Route path="/mySpace" component={MySpace} />
         <Route path="/signup" component={SignUp} />
         <Route path="/login" component={Login} />
       </Switch>
