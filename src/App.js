@@ -11,6 +11,7 @@ import SpaceDetailPage from "./pages/SpaceDetailPage";
 import Homepage from "./pages/Homepage";
 import MySpace from "./pages/MySpacePage";
 import StoryForm from "./components/StoryForm";
+import EditStoryForm from "./components/EditStoryForm";
 
 import { useDispatch, useSelector } from "react-redux";
 import { selectAppLoading } from "./store/appState/selectors";
@@ -33,6 +34,7 @@ function App() {
         <Route path="/spaces/:id" component={SpaceDetailPage} />
         <Route exact path="/" component={Homepage} />
         <Route path="/mySpace/newStory" component={StoryForm} />
+        <Route path="/mySpace/edit" component={EditStoryForm} />
         <Route path="/mySpace" component={MySpace} />
         <Route path="/signup" component={SignUp} />
         <Route path="/login" component={Login} />

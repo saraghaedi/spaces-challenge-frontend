@@ -92,7 +92,7 @@ export const getUserWithStoredToken = () => {
       const response = await axios.get(`${apiUrl}/me`, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      console.log("response------", response.data);
+
       // token is still valid
       dispatch(tokenStillValid(response.data));
       dispatch(appDoneLoading());
@@ -152,7 +152,65 @@ export function createStory(name, content, imageUrl, spaceId, token) {
           },
         }
       );
+      dispatch(
+        showMessageWithTimeout(
+          "success",
+          false,
+          "Story Created Successfully!",
+          3000
+        )
+      );
       dispatch(createStoryAction(response.data));
+    } catch (e) {
+      console.log(e.message);
+    }
+  };
+}
+
+export function editSpaceAction(data) {
+  return {
+    type: "user/editSpace",
+    payload: data,
+  };
+}
+
+export function editSpace(
+  id,
+  title,
+  description,
+  backgroundColor,
+  color,
+  token
+) {
+  return async function thunk(dispatch, getState) {
+    try {
+      console.log("title", title, typeof title);
+      console.log("des", description, typeof description);
+      console.log("backcolor", backgroundColor, typeof backgroundColor);
+      console.log("color", color, typeof color);
+      const response = await axios.put(
+        `http://localhost:4000/spaces/${id}`,
+        {
+          title,
+          description,
+          backgroundColor,
+          color,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      dispatch(
+        showMessageWithTimeout(
+          "success",
+          false,
+          "Space Edited Successfully!",
+          3000
+        )
+      );
+      dispatch(editSpaceAction(response.data));
     } catch (e) {
       console.log(e.message);
     }

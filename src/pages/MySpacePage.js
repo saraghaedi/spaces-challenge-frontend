@@ -18,7 +18,7 @@ export default function MySpace() {
         <h5>{userSpace?.description}</h5>
       </Jumbotron>
       <div>
-        <Link>
+        <Link to={"/mySpace/edit"}>
           <Button style={{ margin: "1em" }}>Edit My Space</Button>
         </Link>
         <Link to="/mySpace/newStory">
@@ -26,7 +26,7 @@ export default function MySpace() {
         </Link>
       </div>
       <div>
-        {userSpace?.stories.map((story) => {
+        {userSpace?.stories?.map((story) => {
           return (
             <div
               key={story.id}

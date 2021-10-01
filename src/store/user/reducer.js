@@ -4,6 +4,7 @@ const initialState = {
   token: localStorage.getItem("token"),
   name: null,
   email: null,
+  space: null,
 };
 
 export default (state = initialState, action) => {
@@ -37,6 +38,19 @@ export default (state = initialState, action) => {
         space: {
           ...state.space,
           stories: [...state.space.stories, action.payload],
+        },
+      };
+    }
+
+    case "user/editSpace": {
+      return {
+        ...state,
+        space: {
+          ...state,
+          title: action.payload.title,
+          description: action.payload.description,
+          backgroundColor: action.payload.backgroundColor,
+          color: action.payload.color,
         },
       };
     }
