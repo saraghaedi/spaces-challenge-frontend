@@ -46,11 +46,8 @@ export default (state = initialState, action) => {
       return {
         ...state,
         space: {
-          ...state,
-          title: action.payload.title,
-          description: action.payload.description,
-          backgroundColor: action.payload.backgroundColor,
-          color: action.payload.color,
+          ...state.space,
+          ...action.payload,
         },
       };
     }

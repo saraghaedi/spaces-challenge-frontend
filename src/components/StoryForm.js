@@ -9,14 +9,15 @@ import Image from "react-bootstrap/Image";
 import { useSelector, useDispatch } from "react-redux";
 import { createStory } from "../store/user/actions";
 import { selectUser } from "../store/user/selectors";
+import { useHistory } from "react-router-dom";
 
 export default function StoryForm() {
   const [name, setName] = useState("");
   const [content, setContent] = useState("");
   const [imageUrl, setImageUrl] = useState("");
   const user = useSelector(selectUser);
-  // const token = useSelector(selectßToken);
   const dispatch = useDispatch();
+  const history = useHistory();
 
   function submitForm(event) {
     event.preventDefault();
@@ -27,7 +28,10 @@ export default function StoryForm() {
     setContent("");
     setImageUrl("");
   }
-  if (!user.name) return <h1>Loading</h1>;
+  if (!user.token) {
+    history.push(`/login`);
+    return <h1>Loading</h1>;
+  }
   const spaceId = user.space.id;
   return (
     <div>

@@ -7,9 +7,11 @@ import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { selectUser } from "../store/user/selectors";
 import { editSpace } from "../store/user/actions";
+import { useHistory } from "react-router-dom";
 
 export default function EditStoryForm() {
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const user = useSelector(selectUser);
   const [title, setTitle] = useState("");
@@ -42,7 +44,10 @@ export default function EditStoryForm() {
     );
   }
 
-  if (!user) return <h1>Loading</h1>;
+  if (!user.token) {
+    history.push(`/login`);
+    return <h1>Loading</h1>;
+  }
   return (
     <div>
       <div>
